@@ -40,5 +40,11 @@ linkList.forEach((link) => {
     `);
 
     instance.show();
+
+    gallery.addEventListener("keydown", (evt) => {
+      if (evt.code === "Escape") {
+        instance.close();
+      }
+    });
   });
 });

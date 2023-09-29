@@ -1,6 +1,5 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-let instance = "";
 
 const gallery = document.querySelector(".gallery");
 
@@ -36,6 +35,4 @@ linkList.forEach((link) => {
   });
 });
 let galleryImage = new SimpleLightbox(".gallery a");
-galleryImage.on("show.simplelightbox", function () {
-  // Do something…
-});
+galleryImage.on("show.simplelightbox", function () {});
