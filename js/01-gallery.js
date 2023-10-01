@@ -1,50 +1,49 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-let instance = "";
+// let instance = "";
 
 const gallery = document.querySelector(".gallery");
 
 console.log(galleryItems);
 
-const galleryItemLayout = (galleryItem) =>
-  `<li class="gallery__item">
-  <a class="gallery__link" href="${galleryItem.original}">
-    <img
-      class="gallery__image"
-      src="${galleryItem.preview}"
-      data-source="${galleryItem.original}"
-      alt="${galleryItem.description}"
-    />
-  </a>
+function createGalleryMarkup(items) {
+  return items
+    .map(
+      (item) =>
+        `<li class="gallery__item">
+<a class="gallery__link" href="${item.original}">
+<img
+class="gallery__image"
+src="${item.preview}"
+data-source="${item.original}"
+alt="${item.description}"
+/>
+</a>
 </li>
-`;
+`
+    )
+    .join("");
+}
 
-const flatGallery = () => {
-  const items = galleryItems.map((item) => galleryItemLayout(item)).join("");
+const addGallery = createGalleryMarkup(galleryItems);
+gallery.innerHTML = addGallery;
+gallery.addEventListener("click", onImageClick);
 
-  gallery.insertAdjacentHTML("afterbegin", items);
-};
-
-flatGallery();
-
-const linkList = document.querySelectorAll(".gallery__link");
-
-linkList.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    const attrValue = link.getAttribute("href");
-
-    instance = basicLightbox.create(`
-      <img src="${attrValue}"/>
-    `);
-
-    instance.show();
-
-    gallery.addEventListener("keydown", (evt) => {
-      if (evt.code === "Escape") {
-        instance.close();
-      }
-    });
+function onImageClick(evt) {
+  blockStandartAction(evt);
+  if (evt.target.nodeName !== "IMG") {
+    return;
+  }
+  const instance = basicLightbox.create(`
+  <img src = "${evt.target.dataset.Source}" width ="800" height ="600"/>`);
+  console.log(instance);
+  instance.show();
+  gallery.addEventListener("keydown", (evt) => {
+    if (evt.code === "Escape") {
+      instance.close();
+    }
   });
-});
+}
+function blockStandartAction(evt) {
+  evt.preventDefault();
+}

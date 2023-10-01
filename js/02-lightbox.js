@@ -30,9 +30,12 @@ const linkList = document.querySelectorAll(".gallery__link");
 linkList.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
-
     const attrValue = link.getAttribute("href");
   });
 });
-let galleryImage = new SimpleLightbox(".gallery a");
+
+let galleryImage = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
 galleryImage.on("show.simplelightbox", function () {});
